@@ -19,7 +19,7 @@ jobs:
           npm run build --if-present
           npm run test --if-present
       - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3.1.2
         with:
           name: node-app
           path: .
@@ -38,7 +38,7 @@ jobs:
           creds: ${{ secrets.AZURE_CREDS}}
           
       - name: Download artifact from build job
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3.0.2
         with:
           name: node-app
 
