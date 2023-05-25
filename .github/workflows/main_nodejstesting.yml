@@ -24,7 +24,7 @@ jobs:
           name: node-app
           path: .
 
-  deploy:
+  deploy:      
     runs-on: ubuntu-latest
     needs: build
     environment:
@@ -32,6 +32,11 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
+      - name: Azure login 
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDS}}
+          
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
         with:
@@ -43,5 +48,3 @@ jobs:
         with:
           app-name: 'nodeJsTesting'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6CF96743AC124563BDBD7EDE30CF343A }}
-          package: .
