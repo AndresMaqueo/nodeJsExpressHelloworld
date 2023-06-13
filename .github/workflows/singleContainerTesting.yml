@@ -32,7 +32,7 @@ jobs:
     - uses: azure/webapps-deploy@v2
       with:
         app-name: 'singleContainerTesting'
-        images: index.docker.io/${{ secrets.REGISTRY_USERNAME }}/nodejshelloworl:latest
+        images: index.docker.io/${{ secrets.REGISTRY_USERNAME }}/nodejshelloworld:first-ctr
     
     - name: Azure logout
       run: |
