@@ -22,12 +22,12 @@ jobs:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
         
-#     - name: Build and push container image to registry
-#       uses: docker/build-push-action@v3
-#       with:
-#         push: true
-#         tags: index.docker.io/${{ secrets.REGISTRY_USERNAME }}/nodejshelloworld:first-ctr
-#         file: ./Dockerfile     
+    - name: Build and push container image to registry
+      uses: docker/build-push-action@v3
+      with:
+        push: true
+        tags: index.docker.io/${{ secrets.REGISTRY_USERNAME }}/nodejshelloworld:first-ctr
+        file: ./Dockerfile     
       
     - uses: azure/webapps-deploy@v2
       with:
