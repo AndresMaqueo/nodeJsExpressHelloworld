@@ -41,7 +41,7 @@ jobs:
       with:
         app-name: 'singleContainerTesting'
 #         images: index.docker.io/${{ secrets.REGISTRY_USERNAME }}/nodejshelloworld:latest
-        images: sgollapudiimages.azurecr.io/sg/localnodejs:latest
+        images: sgollapudiimages.azurecr.io/sgollapudiimages/sg/localnodejs:latest
     
     - name: Azure logout
       run: |
