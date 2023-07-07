@@ -26,7 +26,7 @@ jobs:
     - name: Log in to ACR
       uses: azure/docker-login@v1
       with:
-        login-server: sgollapudiimages.azurecr.io
+        registry: https://sgollapudiimages.azurecr.io/
         username: ${{ secrets.ACR_USERNAME }}
         password: ${{ secrets.ACR_PASSWORD }}
         
@@ -41,7 +41,7 @@ jobs:
       with:
         app-name: 'singleContainerTesting'
 #         images: index.docker.io/${{ secrets.REGISTRY_USERNAME }}/nodejshelloworld:latest
-        images: sgollapudiimages.azurecr.io/sg/localnodejs:latest
+        images: sgollapudiimages.azurecr.io/${{ secrets.ACR_USERNAME }}/sg/localnodejs:latest
     
     - name: Azure logout
       run: |
