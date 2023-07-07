@@ -26,7 +26,7 @@ jobs:
     - name: Log in to ACR
       uses: azure/docker-login@v1
       with:
-        registry: sgollapudiimages.azurecr.io
+        login-server: sgollapudiimages.azurecr.io
         username: ${{ secrets.ACR_USERNAME }}
         password: ${{ secrets.ACR_PASSWORD }}
         
