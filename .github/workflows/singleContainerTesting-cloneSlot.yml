@@ -1,6 +1,6 @@
 on: [push]
 
-name: [CloneSlot]SingleContainerTesting
+name: SingleContainerTesting
 
 jobs:
   build-and-deploy:
