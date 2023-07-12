@@ -41,11 +41,16 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
+    - name: 'Login via Azure CLI'
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDS }}
+        
     - name: Deploy to Azure Web App
       id: deploy-to-webapp
       uses: azure/webapps-deploy@v2
       with:
         app-name: 'containerTestingACR'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_7856c96ceb944d0b9fddc49d28b2dca7 }}
+#         publish-profile: ${{ secrets.AzureAppService_PublishProfile_7856c96ceb944d0b9fddc49d28b2dca7 }}
         images: 'sgollapudiimages.azurecr.io/sg/localnodejs:${{ github.sha }}'
