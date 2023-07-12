@@ -50,7 +50,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: sgollapudiimages.azurecr.io/${{ secrets.ACR_USERNAME }}/sg/localnodejs:latest
+        tags: sgollapudiimages.azurecr.io/sg/localnodejs:latest
         file: ./Dockerfile     
     
     - uses: azure/webapps-deploy@v2
@@ -58,7 +58,7 @@ jobs:
         app-name: 'singleContainerTesting'
         slot-name: 'production'
 #         images: index.docker.io/${{ secrets.REGISTRY_USERNAME }}/nodejshelloworld:latest
-        images: sgollapudiimages.azurecr.io/${{ secrets.ACR_USERNAME }}/sg/localnodejs:latest
+        images: sgollapudiimages.azurecr.io/sg/localnodejs:latest
     
     - name: Azure logout
       run: |
