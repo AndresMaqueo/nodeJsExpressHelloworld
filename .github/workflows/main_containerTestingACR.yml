@@ -30,7 +30,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: sgollapudiimages.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_64c05a0d866f4c8497ad23d3e0c2f782 }}/sg/localnodejs:${{ github.sha }}
+        tags: sgollapudiimages.azurecr.io/sg/localnodejs:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -48,4 +48,4 @@ jobs:
         app-name: 'containerTestingACR'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_7856c96ceb944d0b9fddc49d28b2dca7 }}
-        images: 'sgollapudiimages.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_64c05a0d866f4c8497ad23d3e0c2f782 }}/sg/localnodejs:${{ github.sha }}'
+        images: 'sgollapudiimages.azurecr.io/sg/localnodejs:${{ github.sha }}'
