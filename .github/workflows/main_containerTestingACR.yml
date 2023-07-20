@@ -30,7 +30,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: sgollapudiimages.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_4e053461e6214014935fd6e67640899c }}/sg/localnodejs:${{ github.sha }}
+        tags: sgollapudiimages.azurecr.io/sgollapudiimages/sg/localnodejs:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
