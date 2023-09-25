@@ -6,6 +6,9 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  AZURE_WEBAPP_NAME: 'nodeJsTesting'
+  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -44,7 +47,13 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDS}}
-          
+
+      - name: App settings
+        uses: azure/appservice-settings@v1
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          mask-inputs: false
+          app-settings-json: '[{ "name": "SCM_DO_BUILD_DURING_DEPLOYMENT", "value": "1", "slotSetting": false }]'
       # - name: Download artifact from build job
       #   uses: actions/download-artifact@v3
       #   with:
@@ -57,6 +66,6 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'nodeJsTesting'
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
           slot-name: 'Production'
           package: .
