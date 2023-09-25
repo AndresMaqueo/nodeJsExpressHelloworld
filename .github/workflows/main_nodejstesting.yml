@@ -49,7 +49,7 @@ jobs:
           creds: ${{ secrets.AZURE_CREDS}}
 
       - name: App settings
-        uses: azure/appservice-settings@v1
+        uses: sgollapudi77/appservice-settings@sgollapudi/updatePackage
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           mask-inputs: false
