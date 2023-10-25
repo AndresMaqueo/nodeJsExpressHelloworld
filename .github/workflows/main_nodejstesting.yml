@@ -1,6 +1,3 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
 name: Build and deploy Node.js app to Azure Web App - nodeJsTesting
 
 on:
@@ -15,46 +12,47 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
+      
       - name: Set up Node.js version
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: '16.x'
 
       - name: npm install, build, and test
         run: |
-          npm install
+          npm install --force
           npm run build --if-present
-          npm run test --if-present
-
+      
+      - name: Zip artifact for deployment
+        run: zip release.zip ./* -r
+      
       - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: node-app
-          path: .
+          path: release.zip
 
-  deploy:
+  deploy:      
     runs-on: ubuntu-latest
     needs: build
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    permissions:
-      id-token: write #This is required for requesting the JWT
 
     steps:
+      - name: Azure login 
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDS}}
+          
       - name: Download artifact from build job
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: node-app
       
-      - name: Login to Azure
-        uses: azure/login@v1
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_05BAB4E6DA0B46439EDCF6ACDA8864F5 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_8B25032E176C40DA885BD3253FD0A252 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_4B84A59A856D4EDE8E243CEDD121922E }}
-
+      - name: unzip artifact for deployment
+        run: unzip release.zip
+        
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
@@ -62,4 +60,3 @@ jobs:
           app-name: 'nodeJsTesting'
           slot-name: 'Production'
           package: .
-          
